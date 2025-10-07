@@ -5,4 +5,5 @@ Erwartungen an die LV: Grundlegendes Verständnis von CI/CD und praktische Erfah
 - Ich programmiere gerne im Frontend
 - Ich spiele gerne Schach (Felix verliert)
 - Ich lerne gerne neue Technologien 
-  Warum ist CI/CD für mich relevant? Ich möchte meinen Entwicklungsprozess automatisieren und qualitativ hochwertige Software liefern.
+  Warum ist CI/CD für mich relevant? 
+- Ich möchte meinen Entwicklungsprozess automatisieren und qualitativ hochwertige Software liefern.
