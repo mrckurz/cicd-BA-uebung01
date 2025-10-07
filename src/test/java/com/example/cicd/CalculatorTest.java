@@ -21,6 +21,18 @@ class CalculatorTest {
     }
 
     @Test
+    void subtract_shouldWorkWithResLesserThanZero() {
+        Calculator c = new Calculator();
+        assertEquals(-2,c.subtract(5,7));
+    }
+
+    @Test 
+    void subtract_shouldSubtractTwoIntegers() {
+        Calculator c = new Calculator();
+        assertEquals(2,c.subtract(7,5));
+    }
+
+    @Test
     void divide_byZero_shouldReturnZero_currentBehavior() {
         Calculator c = new Calculator();
         // Aktuelles (schlechtes) Verhalten absichtlich bestätigt – Refactoring in Ü2
@@ -33,4 +45,5 @@ class CalculatorTest {
         List<Integer> nums = Arrays.asList(1, 2, 3, null, 4);
         assertEquals(c.sumUp(nums), c.addAll(nums));
     }
+
 }
