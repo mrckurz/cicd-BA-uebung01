@@ -1,12 +1,18 @@
 # UE02 — CI Pipeline with Matrix Builds, Coverage & SonarCloud (24 pts)
 
-**Goal:** Extend your UE01 repository with a production-ready CI pipeline using GitHub Actions: build & test with Maven/Surefire, matrix builds (Windows/Ubuntu, Java 17/21), publish test reports as artifacts, integrate JaCoCo coverage and SonarCloud, fix reported issues, and add a build badge to your README.
+**Goal:** Extend your UE01 repository with a production-ready CI pipeline using GitHub Actions: 
+- build & test with Maven/Surefire
+- matrix builds (Windows/Ubuntu, Java 17/21)
+- publish test reports as artifacts
+- integrate JaCoCo coverage and SonarCloud
+- fix reported issues
+- build badge to your README.
 
 ---
 
 ## What you deliver
 1. **GitHub repo link** (same repo as UE01, continued).
-2. A short **PDF report** (max. 3 pages) with screenshots and brief comments:
+2. A short **PDF report** with screenshots and brief comments:
    - Successful CI runs (matrix view).
    - Artifacts (Surefire reports) for each matrix variant.
    - SonarCloud project dashboard / PR decoration / Quality Gate status.
