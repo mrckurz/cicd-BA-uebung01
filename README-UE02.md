@@ -38,32 +38,60 @@
 
 ---
 
-## Prerequisites
-- You continue with your **UE01** repo (same code base).
-- **Java 17** (Temurin recommended), **Maven**, and a GitHub account.
-- SonarCloud account with a project linked to your GitHub repo and a secret **`SONAR_TOKEN`** configured in the repo (**Settings → Secrets and variables → Actions**).
+## Constraints & expectations
+- Use your existing UE01 repo and build system (Maven, JUnit 5).
+- Prefer Temurin JDK in GitHub Actions.
+- Use matrix builds wisely and exclude one variant (your choice); justify which and why in your PDF.
+- SonarCloud should analyze each commit to main (PR decoration is a plus, not required).
+- Keep the pipeline readable: good job names, clear artifact names, minimal noise.
 
-> ⚠️ If you perform CI-based analysis, **disable “Automatic Analysis”** in SonarCloud (Project → Administration → Analysis Method → OFF).
+## What we will look for (acceptance criteria)
+Workflow setup
+- Triggers include push to main (PR triggers welcome).
+- Concurrency set (avoid duplicate runs).
+- Path filters are reasonable (don’t trigger on irrelevant changes).
+
+## Build & tests
+- Tests actually execute in CI (not skipped).
+- Surefire reports are uploaded as artifacts and named per matrix variant.
+- The matrix shows all intended combinations and one is excluded.
+
+## Coverage
+- JaCoCo produces an XML report in the expected location (e.g., target/site/jacoco/jacoco.xml).
+- Coverage is visible in SonarCloud after analysis (non-zero if tests cover code).
+
+## SonarCloud
+- Analysis succeeds for every push to main.
+- If you run analysis in CI: Automatic Analysis in SonarCloud is disabled.
+- Project and organization are correctly set; token secret configured in the repo.
+- No hardcoded secrets in the repo.
+
+## Issue handling
+- At least two meaningful issues addressed (e.g., real bug, reliability/maintainability/security problem).
+- Short before/after justification in the PDF.
+
+## README badge
+- A status badge for your workflow is visible near the top of the README.
 
 ---
 
-## Task 1 — Add the GitHub Actions Workflow (4 pts)
+## Hints (no copy-paste blocks on purpose)
+- Matrix builds: combine OS and Java versions; give the job a readable name and exclude one combination (document your choice). Name artifacts using matrix variables so you can distinguish runs.
+- Surefire artifacts: upload them even when the job fails (conditional step).
+- JaCoCo: keep configuration minimal; ensure the XML report path matches what SonarCloud expects.
+- SonarCloud: prefer the Maven scanner for Java projects. If CI scans are enabled, turn Automatic Analysis OFF in the project settings. Ensure SONAR_TOKEN is a repository secret.
+- Branch protection (optional but recommended): require your CI checks (and Quality Gate if used) before merging to main.
+- Windows vs. Ubuntu: watch for path separators and line endings; avoid OS-specific assumptions.
+- Flaky tests: stabilize or quarantine; don’t mask problems by skipping tests.
+- Documentation: in the PDF, include small, legible screenshots and one-sentence explanations—prioritize clarity over volume.
 
-Create `.github/workflows/ci.yml` with sensible triggers and concurrency:
+## Submission checklist (student self-check)
+- [ ] Workflow triggers and concurrency are configured.
+- [ ] Tests run in CI; artifacts exist for each matrix variant and are clearly named.
+- [ ] Matrix covers both OS and both JDKs; one combination is excluded.
+- [ ] JaCoCo XML coverage file exists and is referenced by SonarCloud.
+- [ ] SonarCloud analysis runs on every push to main; token and project settings OK.
+- [ ] ≥ 2 SonarCloud findings fixed; PDF shows before/after.
+- [ ] README contains the workflow status badge.
 
-```yaml
-name: CI
-on:
-  push:
-    branches: [ main ]          # required check on main
-    paths: [ 'pom.xml', 'src/**', '.github/workflows/**' ]
-  pull_request:
-    branches: [ main ]
-    paths: [ 'pom.xml', 'src/**', '.github/workflows/**' ]
-
-permissions:
-  contents: read
-
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+Good luck—and keep your new code clean. 🚀
