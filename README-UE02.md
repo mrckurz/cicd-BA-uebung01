@@ -1,4 +1,3 @@
-cat > README-UE02.md <<'MD'
 # UE02 — CI Pipeline with Matrix Builds, Coverage & SonarCloud (24 pts)
 
 **Goal:** Extend your UE01 repository with a production-ready CI pipeline using GitHub Actions: build & test with Maven/Surefire, matrix builds (Windows/Ubuntu, Java 17/21), publish test reports as artifacts, integrate JaCoCo coverage and SonarCloud, fix reported issues, and add a build badge to your README.
