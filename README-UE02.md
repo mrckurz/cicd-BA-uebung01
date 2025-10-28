@@ -20,6 +20,8 @@
    - Notes on any problems and how you solved them.
 3. Updated **README.md** in the repo with a **build badge** pointing to your CI workflow.
 
+Submit your results to eLearning until **November, 6th 2025, 23:55**
+
 ---
 
 ## Scoring (24 pts total)
