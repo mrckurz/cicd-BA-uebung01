@@ -77,7 +77,7 @@ Workflow setup
 
 ---
 
-## Hints (no copy-paste blocks on purpose)
+## Hints 
 - Matrix builds: combine OS and Java versions; give the job a readable name and exclude one combination (document your choice). Name artifacts using matrix variables so you can distinguish runs.
 - Surefire artifacts: upload them even when the job fails (conditional step).
 - JaCoCo: keep configuration minimal; ensure the XML report path matches what SonarCloud expects.
