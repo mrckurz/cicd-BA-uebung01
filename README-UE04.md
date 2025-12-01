@@ -77,13 +77,13 @@ Try out several configurations:
 
 #### For Trivy:
 
--   `--severity HIGH,CRITICAL`\
--   `--exit-code 1`\
+-   `--severity HIGH,CRITICAL`
+-   `--exit-code 1`
 -   `--ignore-unfixed`
 
 #### For Grype:
 
--   `--fail-on high`\
+-   `--fail-on high`
 -   `--only-fixed`
 
 Document what happens in each experiment.
