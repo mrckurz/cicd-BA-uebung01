@@ -13,9 +13,9 @@
 5) README um Abschnitt „Übung 1“ ergänzen
 
 ## Checklist vor Abgabe
-- [ ] `mvn test` läuft lokal ohne Fehler
+- [ ] `mvn test` läuft lokal, nur der bewusst fehlschlagende Test in `TextUtilsTest` schlägt fehl (wird in Übung 2 behoben)
 - [ ] Mindestens **2 zusätzliche Unit-Tests** ergänzt
 - [ ] Branching + PR + Review durchgeführt
 - [ ] `about-me.md` vorhanden
 - [ ] README-Abschnitt „Übung 1“ ergänzt
-- [ ] Repo-Link in Moodle eingereicht (Deadline: 14.10.2025, 23:55)
+- [ ] Repo-Link in eLearning eingereicht (Deadline: 28.10.2026, 23:55)

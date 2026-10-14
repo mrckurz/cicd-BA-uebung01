@@ -22,6 +22,11 @@ mvn -q -DskipTests=false test
 ```
 Coverage-Report (für Übung 2 / SonarCloud): `target/site/jacoco/index.html`
 
+> **Hinweis:** `TextUtilsTest` enthält einen bewusst fehlschlagenden Test (`isPalindrome_caseInsensitive_expectedTrue`), der erst in Übung 2 behoben wird. Bis dahin endet `mvn test` mit **1 Failure** und `BUILD FAILURE`, und der Coverage-Report wird nicht erzeugt. Den Report gibt es trotzdem mit:
+> ```bash
+> mvn test -Dmaven.test.failure.ignore=true
+> ```
+
 ---
 
 ## Projektstruktur
@@ -48,7 +53,7 @@ Coverage-Report (für Übung 2 / SonarCloud): `target/site/jacoco/index.html`
    ```
 4. **Upstream einrichten** (Original-Repo als Referenz):
    ```bash
-   git remote add upstream https://github.com/<org>/<kurs-starter-repo>.git
+   git remote add upstream https://github.com/mrckurz/cicd-BA-uebung01.git
    git remote -v
    # => origin = dein Fork, upstream = Kurs-Repo
    ```
@@ -93,6 +98,7 @@ mvn -q -DskipTests=false test
 - Das Starterprojekt liegt bereits unter `src/`.  
 - **Aufgabe:** Schreibe **mindestens zwei zusätzliche Unit-Test** in `src/test/java` (z. B. weitere Fälle für `Calculator` oder `TextUtils`).  
 - Stelle sicher, dass die Tests **lokal ausführbar** sind (`mvn test` oder Test-Explorer).
+- Der bewusst fehlschlagende Test in `TextUtilsTest` darf in Übung 1 noch fehlschlagen. Alle anderen Tests, auch die neuen, müssen grün sein.
 
 ---
 
@@ -131,7 +137,7 @@ mvn -q -DskipTests=false test
 | Teilaufgabe | Beschreibung | Punkte |
 |---|---|---:|
 | Repo einrichten | Repo + Starterprojekt im eigenen Repo, lokal geklont | 4 |
-| Projektgrundlage & Tests | mindestens **2 zusätzlichen Tests** geschrieben, Tests laufen lokal | 6 |
+| Projektgrundlage & Tests | mindestens **2 zusätzlichen Tests** geschrieben, Tests laufen lokal (bis auf den bewusst fehlschlagenden Test) | 6 |
 | Branching | Branch erstellt, `about-me.md` mit allen geforderten Inhalten | 6 |
 | PR & Review | PR mit Beschreibung, 1 Review-Kommentar, Merge | 6 |
 | Dokumentation | README-Abschnitt „Übung 1“ ergänzt | 2 |
@@ -179,7 +185,7 @@ mvn -q -DskipTests=false test
   java -version
   mvn -v
   setx JAVA_HOME "C:\Program Files\Eclipse Adoptium\jdk-17"
-  $env:PATH += ";C:\Program Files\Eclipse Adoptium\jdk-17in"
+  $env:PATH += ";C:\Program Files\Eclipse Adoptium\jdk-17\bin"
   ```
 - VS Code → „**Java: Configure Java Runtime**“ → **JDK 17** wählen.  
 - Lange Pfade: `git config --global core.longpaths true`.
@@ -209,9 +215,24 @@ mvn -q -DskipTests=false test
 - Projekt neu laden: „**Java: Clean Java Language Server Workspace**“.  
 - POM prüfen:
   ```xml
-  <dependency>org.junit.jupiter:junit-jupiter-api:5.10.2</dependency>
-  <dependency>org.junit.jupiter:junit-jupiter-engine:5.10.2</dependency>
-  <plugin>maven-surefire-plugin:3.2.5</plugin>
+  <dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.10.2</version>
+    <scope>test</scope>
+  </dependency>
+  <dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-engine</artifactId>
+    <version>5.10.2</version>
+    <scope>test</scope>
+  </dependency>
+
+  <!-- unter <build><plugins> -->
+  <plugin>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>3.2.5</version>
+  </plugin>
   ```
 
 ### E) Git & PR – häufige Fehler
@@ -279,4 +300,4 @@ mvn -q -DskipTests=false test
 
 
 ## Ausblick
-- **Übung 2 (22.10.)**: GitHub Actions – Build & Tests automatisiert ausführen; SonarCloud integrieren.
+- **Übung 2 (4.11.)**: GitHub Actions – Build & Tests automatisiert ausführen; SonarCloud integrieren.
