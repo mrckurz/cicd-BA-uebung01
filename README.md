@@ -46,7 +46,6 @@ Coverage-Report (für Übung 2 / SonarCloud): `target/site/jacoco/index.html`
 > **Wichtig beim Forken:**
 > - Ein Fork eines öffentlichen Repos ist immer öffentlich und kann nicht auf privat gestellt werden. Wer ein privates Repo möchte, verwendet Variante B oder C.
 > - Beim Pull Request in Teil (4) schlägt GitHub als Ziel das Kurs-Repo `mrckurz/cicd-BA-uebung01` vor. Als **base repository** muss der eigene Fork ausgewählt werden, sonst landet der PR im Kurs-Repo.
-> - GitHub Actions sind in Forks zunächst deaktiviert. Für Übung 2 im Tab **Actions** einmal „I understand my workflows, go ahead and enable them“ bestätigen.
 > - Issues sind in Forks standardmäßig ausgeschaltet. Einschalten unter **Settings → General → Features → Issues**.
 
 1. Öffne das Kurs-Starter-Repo (`https://github.com/mrckurz/cicd-BA-uebung01`).  
