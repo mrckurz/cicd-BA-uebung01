@@ -7,7 +7,8 @@ Dieses Repository ist der Startpunkt für **Übung 1** und wird in **allen folge
 
 ## Voraussetzungen (VS Code)
 - **Extension Pack for Java** (Language Support, Debugger, Test Runner, Maven).
-- **JDK 17** aktiv: *Java: Configure Java Runtime*.
+- **JDK 17 oder neuer** aktiv: *Java: Configure Java Runtime* (getestet mit JDK 17, 21, 25 und 27).
+- **Maven 3.9 oder neuer**, Version prüfen mit `mvn -v` (getestet mit 3.9.11 und 3.9.16).
 - Öffne **den Projektroot** (Ordner mit `pom.xml`, nicht nur `src/`).
 - Tests ausführen: *Test Explorer* oder per Terminal:
   ```bash
@@ -41,6 +42,13 @@ Coverage-Report (für Übung 2 / SonarCloud): `target/site/jacoco/index.html`
 > Lege **dein eigenes Repo** mit dem Namen **`ci-cd-uebung-[Nachname]`** an und bringe das Starterprojekt hinein. Wähle **eine** der Varianten.
 
 **Variante A – Fork**  
+
+> **Wichtig beim Forken:**
+> - Ein Fork eines öffentlichen Repos ist immer öffentlich und kann nicht auf privat gestellt werden. Wer ein privates Repo möchte, verwendet Variante B oder C.
+> - Beim Pull Request in Teil (4) schlägt GitHub als Ziel das Kurs-Repo `mrckurz/cicd-BA-uebung01` vor. Als **base repository** muss der eigene Fork ausgewählt werden, sonst landet der PR im Kurs-Repo.
+> - GitHub Actions sind in Forks zunächst deaktiviert. Für Übung 2 im Tab **Actions** einmal „I understand my workflows, go ahead and enable them“ bestätigen.
+> - Issues sind in Forks standardmäßig ausgeschaltet. Einschalten unter **Settings → General → Features → Issues**.
+
 1. Öffne das Kurs-Starter-Repo (`https://github.com/mrckurz/cicd-BA-uebung01`).  
 2. Klick **Fork** → *Owner*: dein Account → *Name*: `ci-cd-uebung-[Nachname]` → Create fork.  
 3. **Deinen Fork klonen** (HTTPS oder SSH):
