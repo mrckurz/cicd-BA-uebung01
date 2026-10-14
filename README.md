@@ -122,7 +122,7 @@ mvn -q -DskipTests=false test
   - Autor: <dein Name>
   - Besonderheit: <1–2 Sätze zu deiner bisherigen Git-Erfahrung>
   ```
-- Reiche den **Repo-Link** in eLearning bis **14.10.2025, 23:55** ein.
+- Reiche den **Repo-Link** in eLearning bis **28.10.2026, 23:55** ein.
 
 ---
 
