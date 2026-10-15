@@ -64,12 +64,14 @@ Coverage-Report (für Übung 2 / SonarCloud): `target/site/jacoco/index.html`
    git remote -v
    # => origin = dein Fork, upstream = Kurs-Repo
    ```
+   `origin` zeigt nach dem Klonen automatisch auf den eigenen Fork, dorthin wird gepusht. `upstream` zeigt auf das Kurs-Repo und dient nur zum Abholen von Änderungen, z. B. aktualisierter Angaben zu den nächsten Übungen. Auf `upstream` kann nicht gepusht werden (keine Schreibrechte).
 5. **(Später) Kurs-Änderungen holen**:
    ```bash
    git fetch upstream
    git switch main
    git merge upstream/main   # oder: git rebase upstream/main
    ```
+   Alternativ auf GitHub im eigenen Fork: **Sync fork** → **Update branch**, danach lokal `git pull`.
 
 **Variante B – „Use this template“ / Import**  
 1. Im Kurs-Repo auf **Use this template** → *Owner*: dein Account → *Name*: `ci-cd-uebung-[Nachname]` → Create.  
