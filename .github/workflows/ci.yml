@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'pom.xml', 'src/**', '.github/workflows/**' ]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'pom.xml', 'src/**', '.github/workflows/**' ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    name: "Build & Test (${{ matrix.os }}, Java ${{ matrix.java }})"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false            # let every variant finish, so all reports are uploaded
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        java: [ '17', '21' ]
+        exclude:
+          # Windows runners are the slowest and most expensive. Java 17 is the compile
+          # target and is already covered on Ubuntu; Windows is still covered by Java 21.
+          - os: windows-latest
+            java: '17'
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+          cache: maven
+
+      - name: Build & Test (Maven/Surefire + JaCoCo)
+        run: mvn -B test
+
+      - name: Upload Surefire reports
+        if: always()              # upload even when tests fail
+        uses: actions/upload-artifact@v7
+        with:
+          name: surefire-reports-${{ matrix.os }}-java${{ matrix.java }}
+          path: target/surefire-reports
+
+  sonar:
+    name: "SonarQube Cloud Analysis"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0          # full history for accurate new-code detection
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      # Test failures are reported by the build-test job; here we only want the analysis
+      # (incl. coverage), so a failing test must not stop the scan.
+      - name: Build, test & analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: >
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dmaven.test.failure.ignore=true
