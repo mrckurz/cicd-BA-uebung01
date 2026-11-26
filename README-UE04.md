@@ -62,15 +62,15 @@ Submit your results to eLearning until **December 11th, 2026, 23:55**
   grype local/app:dev
   ```
 - The first scan downloads the vulnerability database and takes longer.
-- Starting point: without any changes both scanners already report findings from the base image (`eclipse-temurin:17-jre`), currently only LOW and MEDIUM. Note the numbers as your baseline.
+- Starting point: without any changes both scanners already report findings from the base image (`eclipse-temurin:17-jre`), currently only LOW and MEDIUM (Trivy 0.76.2, Grype 0.122.1, November 2026). Note the numbers as your baseline.
 
 ### 2) CI integration
 - Add the scans **after** the Docker job from UE03 (`needs:`). Either scan in the same job right after the image build, or download the image artifact in a new job and `docker load` it first.
 - Trivy: `aquasecurity/trivy-action@v0.36.0` with `image-ref`, `format: json`, `output: trivy-image-report.json`. Older tags of this action (e.g. `0.33.1`) no longer exist.
-- Grype: `anchore/scan-action@v7`, for example:
+- Grype: `anchore/scan-action@v7.4.3`, for example:
   ```yaml
   - name: Grype image scan (JSON report)
-    uses: anchore/scan-action@v7
+    uses: anchore/scan-action@v7.4.3
     with:
       image: local/app:${{ steps.vars.outputs.short_sha }}
       output-format: json
@@ -78,6 +78,8 @@ Submit your results to eLearning until **December 11th, 2026, 23:55**
       severity-cutoff: high
       fail-build: false
   ```
+- Use the full version tag for the Grype action. The short tag `v7` currently points to an older release that installs Grype 0.110.0. That version reports additional HIGH findings in the base image, so the CI result would differ from your local scan.
+- Scanner version and database date influence the result. Note both when you compare local and CI results.
 - Upload both JSON files with `actions/upload-artifact@v7`. Add `if: always()` to the upload steps. Otherwise no report is uploaded when a gate fails the scan step.
 - Adapt the image name to the tag you use in your Docker job.
 
@@ -107,7 +109,7 @@ Submit your results to eLearning until **December 11th, 2026, 23:55**
 
 ### 4) Exit codes / quality gates
 - Trivy (CLI): `--severity HIGH,CRITICAL`, `--exit-code 1`, `--ignore-unfixed`. In `trivy-action` the inputs are `severity`, `exit-code`, `ignore-unfixed`.
-- Grype (CLI): `--fail-on high`, `--only-fixed`. In `scan-action` the inputs are `severity-cutoff`, `fail-build`, `only-fixed`.
+- Grype (CLI): `--fail-on high`, `--only-fixed`. In the Grype action the inputs are `severity-cutoff`, `fail-build`, `only-fixed`.
 - Check the exit code locally with `echo $?` (PowerShell: `$LASTEXITCODE`). Trivy returns the value given with `--exit-code`, Grype returns `2` when `--fail-on` is triggered.
 - Run each gate at least once with a passing and once with a failing result, locally or in CI, and document what happens.
 - **State at submission:** the default branch contains the introduced vulnerabilities, both scans and both report uploads. The pipeline run must finish (reports available as artifacts). Whether your final gate is set to fail the build or only to report is your decision; explain it in the PDF.
